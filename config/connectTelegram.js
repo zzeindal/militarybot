@@ -26,6 +26,7 @@ const { changePhotoScene } = require('../scenes/changePhotoScene.js');
 const { changeTextScene } = require('../scenes/changeTextScene.js');
 const { addMilitaryScene, addMilitaryScene_2 } = require('../scenes/addMilitaryScene.js');
 const { deleteMilitaryScene } = require('../scenes/deleteMilitaryScene.js');
+const { editButtonScene } = require('../scenes/editButtonScene.js');
 
 const stage = new Stage([
     addButtonScene,
@@ -35,7 +36,8 @@ const stage = new Stage([
     changeTextScene,
     addMilitaryScene,
     addMilitaryScene_2,
-    deleteMilitaryScene
+    deleteMilitaryScene,
+    editButtonScene
 ]);
 
 stage.hears('Вернутся в админ-панель', async (ctx) => {

@@ -37,13 +37,17 @@ bot.hears(/^«(.+)»$/i, async (ctx) => {
 
     var callback = [];
     for (var i = buttons.others.length - 1; i >= 0; i--) {
-        callback.push(buttons.others[i]);
+        callback.push(Key.callback(`${buttons.others[i]}`, `editName ${buttons.others[i]}`));
     }
 
     callback.push(Key.callback('Добавить кнопку', `addButton ${buttonNames[ctx.match[1]]}`));
     callback.push(Key.callback('Удалить кнопку', `deleteButton ${buttonNames[ctx.match[1]]}`));
     const keyboard = Keyboard.make(callback, { columns: 1 }).inline();
     await ctx.reply(`Раздел выглядит сейчас так:`, keyboard);
+});
+
+bot.action(/editName (.+)$/i, async (ctx) => {
+    return ctx.scene.enter("editButtonScene", { main: ctx.match[1] });
 });
 
 bot.action(/addButton (.+)$/i, async (ctx) => {
