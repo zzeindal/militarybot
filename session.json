@@ -1,0 +1,27 @@
+{
+  "sessions": [
+    {
+      "id": "1038469052:1038469052",
+      "data": {
+        "__language_code": "ru",
+        "region": "федеральный округ",
+        "city": "Yerevan",
+        "__scenes": {}
+      }
+    },
+    {
+      "id": "781887459:781887459",
+      "data": {
+        "__scenes": {},
+        "__language_code": "ru"
+      }
+    },
+    {
+      "id": "503118393:503118393",
+      "data": {
+        "__language_code": "ru",
+        "__scenes": {}
+      }
+    }
+  ]
+}
