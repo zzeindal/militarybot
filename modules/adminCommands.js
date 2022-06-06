@@ -12,17 +12,32 @@ var buttonNames = {
 }
 
 bot.hears(['/admin', '⏪ Вернутся в админ-панель'], async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
-    return ctx.reply(`Выберите раздел: `, admin_keyboard);
+    if (!admins.includes(ctx.from.id)) return;
+    await ctx.reply(`
+Вы в изменении текстах полностью свободны. Выберите желаемый шрифт как хотите
+
+<b>Жирный шрифт</b>
+<i>Курсив</i>
+<a href="t.me/OfficerBook_bot">Пример ссылки</a>
+<code>Текст с авто копированием</code>
+<pre>Текст без авто копирования</pre>
+`, admin_keyboard);
+    await ctx.replyWithHTML(`
+<b>Жирный шрифт</b>
+<i>Курсив</i>
+<a href="t.me/OfficerBook_bot">Пример ссылки</a>
+<code>Текст с авто копированием</code>
+<pre>Текст без авто копирования</pre>
+`)
 });
 
 bot.hears('Изменить кнопки', async (ctx) => {
-		if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
     return ctx.reply(`Выберите раздел в котором нужно изменить кнопки:`, change_keyboard);
 })
 
 bot.hears(/^«(.+)»$/i, async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: ctx.match[1] });
     if (!checkButtons) {
@@ -37,20 +52,20 @@ bot.hears(/^«(.+)»$/i, async (ctx) => {
 
     var callback = [];
     for (var i = buttons.others.length - 1; i >= 0; i--) {
-        callback.push(Key.callback(`${buttons.others[i]}`, `editName ${buttons.others[i]}`));
+        callback.push(Key.callback(`${buttons.others[i]}`, `edit ${buttons.others[i]}`));
     }
 
-    callback.push(Key.callback('Добавить кнопку', `addButton ${buttonNames[ctx.match[1]]}`));
-    callback.push(Key.callback('Удалить кнопку', `deleteButton ${buttonNames[ctx.match[1]]}`));
+    callback.push(Key.callback('Добавить кнопку', `addB ${buttonNames[ctx.match[1]]}`));
+    callback.push(Key.callback('Удалить кнопку', `delB ${buttonNames[ctx.match[1]]}`));
     const keyboard = Keyboard.make(callback, { columns: 1 }).inline();
     await ctx.reply(`Раздел выглядит сейчас так:`, keyboard);
 });
 
-bot.action(/editName (.+)$/i, async (ctx) => {
+bot.action(/edit (.+)$/i, async (ctx) => {
     return ctx.scene.enter("editButtonScene", { main: ctx.match[1] });
 });
 
-bot.action(/addButton (.+)$/i, async (ctx) => {
+bot.action(/addB (.+)$/i, async (ctx) => {
     var main;
     switch (Number(ctx.match[1])) {
         case 1:
@@ -69,7 +84,7 @@ bot.action(/addButton (.+)$/i, async (ctx) => {
     return ctx.scene.enter("addButtonScene", { main: main });
 });
 
-bot.action(/deleteButton (.+)$/i, async (ctx) => {
+bot.action(/delB (.+)$/i, async (ctx) => {
     var main;
     switch (Number(ctx.match[1])) {
         case 1:
@@ -89,14 +104,14 @@ bot.action(/deleteButton (.+)$/i, async (ctx) => {
 });
 
 bot.hears('Изменить файлы', async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     return ctx.replyWithHTML(`Выберите раздел:`, change_keyboard_2);
 });
 
 
 bot.hears(/-> «(.+)»$/i, async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: ctx.match[1] });
     if (!checkButtons) {
@@ -119,7 +134,7 @@ bot.hears(/-> «(.+)»$/i, async (ctx) => {
 });
 
 bot.hears(/<- «(.+)»$/i, async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: ctx.match[1] });
     if (!checkButtons) {
@@ -137,7 +152,8 @@ bot.hears(/<- «(.+)»$/i, async (ctx) => {
         var split = buttons.others[i].split('::');
 
         const link = await bot.telegram.getFileLink(split[1]);
-        roadText.push(`<a href="${link}">№${i}</a>`);
+
+        roadText.push(`<a href="${link}">${split[2]}</a>`);
     }
     const keyboard = Keyboard.make([Key.callback('Добавить образец', `addDocument ${ctx.match[1]}`)]).inline();
     await ctx.replyWithHTML(`Раздел <b>выглядит</b> сейчас так:\n\n${roadText.join('\n')}`, keyboard);
@@ -148,7 +164,7 @@ bot.action(/addDocument (.+)$/i, async (ctx) => {
 });
 
 bot.hears('Изменить военные ВУЗы', async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: "Военные ВУЗы" });
     if (!checkButtons) {
@@ -165,13 +181,13 @@ bot.hears('Изменить военные ВУЗы', async (ctx) => {
         callback.push(`❗️ «${buttons.others[i]}»`);
     }
 
-        callback.push(`⏪ Вернутся в админ-панель`);
+    callback.push(`⏪ Вернутся в админ-панель`);
     const keyboard = Keyboard.make(callback, { columns: 1 }).reply();
     return ctx.replyWithHTML(`Выберите <b>раздел:</b>`, keyboard);
 });
 
 bot.hears(/❗️ «(.+)»$/i, async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: ctx.match[1] });
     if (!checkButtons) {
@@ -204,7 +220,7 @@ bot.action(/changeText (.+)$/i, async (ctx) => {
 });
 
 bot.hears('Изменить военкоматы', async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const checkButtons = await $button.findOne({ main: "Список военкоматов" });
     if (!checkButtons) {
@@ -229,26 +245,33 @@ bot.hears('Изменить военкоматы', async (ctx) => {
 });
 
 bot.hears(/⚙️ «(.+)»$/i, async (ctx) => {
-	if(!admins.includes(ctx.from.id)) return;
+    if (!admins.includes(ctx.from.id)) return;
 
     const militaries = await $military.find({ region: ctx.match[1] });
 
+    var selected_names = [];
+
     var callback = [];
     for (var i = militaries.length - 1; i >= 0; i--) {
-        callback.push(Key.callback(militaries[i].city));
+        if (!selected_names.includes(militaries[i].city)) {
+            callback.push(Key.callback(militaries[i].city));
+            selected_names.push(militaries[i].city)
+        }
     }
 
-    callback.push(Key.callback(`Добавить военкомат`, `addMilitary ${ctx.match[1]}`));
-    callback.push(Key.callback(`Удалить военкомат`, `deleteMilitary ${ctx.match[1]}`))
+    callback.push(
+        Key.callback(`Добавить военкомат`, `addM ${ctx.match[1]}`),
+        Key.callback(`Удалить военкомат`, `delM ${ctx.match[1]}`)
+    );
     const keyboard = Keyboard.make(callback, { columns: 1 }).inline();
 
     return ctx.replyWithHTML(`Вот так выглядит <b>данный раздел</b> сейчас:`, keyboard);
 });
 
-bot.action(/addMilitary (.+)$/i, async (ctx) => {
+bot.action(/addM (.+)$/i, async (ctx) => {
     return ctx.scene.enter("addMilitaryScene", { region: ctx.match[1] });
 });
 
-bot.action(/deleteMilitary (.+)$/i, async (ctx) => {
+bot.action(/delM (.+)$/i, async (ctx) => {
     return ctx.scene.enter("deleteMilitaryScene", { region: ctx.match[1] });
 });

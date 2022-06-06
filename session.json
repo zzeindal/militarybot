@@ -4,8 +4,11 @@
       "id": "1038469052:1038469052",
       "data": {
         "__language_code": "ru",
-        "region": "федеральный округ",
-        "city": "Yerevan",
+        "city": "Республика ТЕСТ",
+        "region": "Тестовой военкомат",
+        "nameFile": "test",
+        "main": "Приказы",
+        "name": "Название военкомата",
         "__scenes": {}
       }
     },
@@ -20,7 +23,40 @@
       "id": "503118393:503118393",
       "data": {
         "__language_code": "ru",
+        "main": "Федеральные законы",
         "__scenes": {}
+      }
+    },
+    {
+      "id": "1814187709:1814187709",
+      "data": {
+        "__language_code": "ru",
+        "city": "г. Санкт-Петербург",
+        "__scenes": {
+          "current": "addMilitaryScene",
+          "state": {}
+        }
+      }
+    },
+    {
+      "id": "1784998895:1784998895",
+      "data": {
+        "__scenes": {},
+        "__language_code": "ru"
+      }
+    },
+    {
+      "id": "596248797:596248797",
+      "data": {
+        "__scenes": {},
+        "__language_code": "ru"
+      }
+    },
+    {
+      "id": "368265057:368265057",
+      "data": {
+        "__scenes": {},
+        "__language_code": "ru"
       }
     }
   ]

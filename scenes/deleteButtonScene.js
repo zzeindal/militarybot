@@ -2,6 +2,7 @@ const { BaseScene } = require('telegraf');
 const { Keyboard, Key } = require('telegram-keyboard');
 const { back_to_admin_keyboard } = require('../helpers/keyboard.js');
 const { $button } = require('../config/connectMongoose.js');
+const { checkButton } = require('../helpers/utils.js');
 
 const deleteButtonScene = new BaseScene('deleteButtonScene');
 deleteButtonScene.enter(async (ctx) => {
@@ -9,8 +10,8 @@ deleteButtonScene.enter(async (ctx) => {
 });
 
 deleteButtonScene.on('text', async (ctx) => {
-	const checkButtons = await $button.findOne({ main: ctx.message.text });
-	if(!checkButtons) return ctx.replyWithHTML(`Нет <b>кнопки</b> с таким названием.`);
+    const result = await checkButton(ctx.message.text);
+	if(!result) return ctx.replyWithHTML(`Нет <b>кнопки</b> с таким названием.`);
 
 	const buttons = await $button.findOne({ main: ctx.scene.state.main });
 	var index = buttons.others.indexOf(ctx.scene.state.main);

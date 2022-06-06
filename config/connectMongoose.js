@@ -15,8 +15,10 @@ const buttonsSchema = new mongo.Schema({
 });
 
 const militariesSchema = new mongo.Schema({
+    uid: Number,
     region: String,
     city: String,
+    name: String,
     description: String
 });
 

@@ -21,10 +21,10 @@ const i18n = new TelegrafI18n({
 const { admin_keyboard } = require('../helpers/keyboard.js');
 const { addButtonScene } = require('../scenes/addButtonScene.js');
 const { deleteButtonScene } = require('../scenes/deleteButtonScene.js');
-const { addDocumentScene } = require('../scenes/addDocumentScene.js');
+const { addDocumentScene, addDocumentScene2 } = require('../scenes/addDocumentScene.js');
 const { changePhotoScene } = require('../scenes/changePhotoScene.js');
 const { changeTextScene } = require('../scenes/changeTextScene.js');
-const { addMilitaryScene, addMilitaryScene_2 } = require('../scenes/addMilitaryScene.js');
+const { addMilitaryScene, addMilitaryScene_1, addMilitaryScene_2 } = require('../scenes/addMilitaryScene.js');
 const { deleteMilitaryScene } = require('../scenes/deleteMilitaryScene.js');
 const { editButtonScene } = require('../scenes/editButtonScene.js');
 
@@ -32,9 +32,11 @@ const stage = new Stage([
     addButtonScene,
     deleteButtonScene,
     addDocumentScene,
+    addDocumentScene2,
     changePhotoScene,
     changeTextScene,
     addMilitaryScene,
+    addMilitaryScene_1,
     addMilitaryScene_2,
     deleteMilitaryScene,
     editButtonScene

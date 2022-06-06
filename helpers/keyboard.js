@@ -17,6 +17,7 @@ const info_keyboard = Keyboard.make([
     Key.callback('Образцы форм, рапортов, заявлений', 'info 2'),
     Key.callback('Военные ВУЗы', 'info 3'),
     Key.callback('Список военкоматов', 'info 4'),
+    Key.callback('💰 Поддержка проекта', 'donate')
 ], { columns: 1 }).inline();
 
 const back_to_admin_keyboard = Keyboard.make(['Вернутся в админ-панель']).reply();

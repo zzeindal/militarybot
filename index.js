@@ -23,6 +23,7 @@ bot.start(async (ctx) => {
     if (!user) {
         await saveUser(ctx)
     }
+    await ctx.replyWithPhoto({ source: 'main.jpg' })
     return ctx.replyWithHTML(ctx.i18n.t("start"), start_keyboard);
 });
 
